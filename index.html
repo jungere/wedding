@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
@@ -54,4 +55,53 @@
 
   
   </body>
+=======
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1"> 
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <title></title>
+        <link rel="stylesheet" href="./css/reset.css">
+        <link rel="stylesheet" href="./bower_components/fullpage.js/dist/jquery.fullpage.min.css">
+        <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="./bower_components/fullpage.js/vendors/jquery.easings.min.js"></script>
+        <script src="./bower_components/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
+        <script src="./bower_components//fullpage.js/dist/jquery.fullpage.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KwPBr3oXBjHG2wmbkOpZbEsZ"></script>
+        <style>
+            #allmap{
+                height: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="fullpage">
+            <div class="section"><img src="img/1.jpg" alt=""></div>
+            <div class="section"><img src="img/2.jpg" alt=""></div>
+            <div class="section"><img src="img/3.jpg" alt=""></div>
+            <div class="section"><img src="img/4.jpg" alt=""></div>
+            <div class="section"><div id="allmap"></div></div>
+            
+        </div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            $('#fullpage').fullpage();
+        });
+    </script>
+    <script type="text/javascript">
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(113.279437, 22.327185);
+    map.centerAndZoom(point, 16);
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);               // 将标注添加到地图中
+    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+</script>
+>>>>>>> refs/remotes/origin/master
 </html>
