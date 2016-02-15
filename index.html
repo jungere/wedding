@@ -4,46 +4,173 @@
         <meta charset='utf-8'>
         <meta http-equiv="X-UA-Compatible" content="chrome=1"> 
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
         <title></title>
         <link rel="stylesheet" href="./css/reset.css">
         <link rel="stylesheet" href="./bower_components/fullpage.js/dist/jquery.fullpage.min.css">
-        <script src="./bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="./bower_components/fullpage.js/vendors/jquery.easings.min.js"></script>
-        <script src="./bower_components/fullpage.js/vendors/jquery.slimscroll.min.js"></script>
-        <script src="./bower_components//fullpage.js/dist/jquery.fullpage.js"></script>
-        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KwPBr3oXBjHG2wmbkOpZbEsZ"></script>
         <style>
+            body{
+                background-color: #222;
+
+            }
+            .hide{
+                display: none;
+            }
             #allmap{
                 height: 100%;
             }
+            #load{
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                width: 300px;
+                height: 300px;
+                margin: -150px 0 0 -150px;
+                
+            }
+            .bg1, .bg2{ 
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                overflow: hidden;
+            }
+            .bg2 img{
+                width: 300px;
+                max-width: inherit;
+            }
+            .bg1{opacity: .3;}
+            .bg2{width: 0; transition: width .1s ease;}
         </style>
     </head>
-
     <body>
-        <div id="fullpage">
-            <div class="section"><img src="img/1.jpg" alt=""></div>
-            <div class="section"><img src="img/2.jpg" alt=""></div>
-            <div class="section"><img src="img/3.jpg" alt=""></div>
-            <div class="section"><img src="img/4.jpg" alt=""></div>
-            <div class="section"><div id="allmap"></div></div>
-            
+        <div id="load">
+            <div class="bg1"><img src="./img/logo.png"></div>
+            <div class="bg2"><img src="./img/logo.png"></div>
         </div>
+        <div id="fullpage" class="hide">
+            <div class="section" id="img1"></div>
+            <div class="section" id="img2"></div>
+            <div class="section" id="img3"></div>
+            <div class="section" id="img4"></div>
+            <div class="section"><div id="allmap"></div></div>
+        </div>
+
     </body>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KwPBr3oXBjHG2wmbkOpZbEsZ"></script>
     <script>
+        var load_list = [
+            {
+                type : 'js',
+                src :  './bower_components/fullpage.js/vendors/jquery.easings.min.js'
+            },
+            {
+                type : 'js',
+                src :  "./bower_components/fullpage.js/vendors/jquery.slimscroll.min.js"
+            },
+            {
+                type : 'js',
+                src :  "./bower_components/fullpage.js/dist/jquery.fullpage.js"
+            },
+            {
+                type : 'img',
+                src :  './img/1.jpg',
+                wrap : '#img1'
+            },
+            {
+                type : 'img',
+                src :  './img/2.jpg',
+                wrap : '#img2'
+            },
+            {
+                type : 'img',
+                src :  './img/3.jpg',
+                wrap : '#img3'
+            },
+            {
+                type : 'img',
+                src :  './img/4.jpg',
+                wrap : '#img4'
+            }
+        ]
+        var loadBar = {
+            allow_complete : false,
+            progress : 0,
+            max : 300,
+            dom : '.bg2',
+            start : function   ( ) {
+                loadBar.progress += !loadBar.allow_complete ? (loadBar.max - loadBar.progress) / 100 : loadBar.max - loadBar.progress;
+                $(loadBar.dom).width(loadBar.progress+'px');
+                if(loadBar.progress >= loadBar.max)
+                {
+                    $("#load").fadeOut('300', function ( ) {
+                        $('#fullpage').removeClass('hide').fullpage();
+                        setTimeout(buildMap, 30);
+                    });
+                    
+                }
+                else
+                {
+                    setTimeout(loadBar.start, 100);
+                }
+                
+            }
+        }
         $(document).ready(function() {
-            $('#fullpage').fullpage();
+            // $('#fullpage').fullpage();
+            // setTimeout(buildMap, 30);
+            loadBar.start();
+            load(0);
         });
+        function load (index) {
+            if(index >= load_list.length)
+            { 
+                finalLoad();
+                return ; 
+            }
+
+            //load
+            var that = load_list[index];
+            if('js' == that.type)
+            {
+                $(document).load(that.src, function   ( ) {
+                    load(++index);
+                })
+            }
+            else if('img' == that.type)
+            {
+                var img = new Image();
+                img.src = that.src;
+                img.onload = function()
+                {
+                    load(++index);
+                }
+            }
+        }
+        function finalLoad () {
+            for (var i = load_list.length - 1; i >= 0; i--) {
+                var that = load_list[i];
+                if('js' == that.type)
+                {
+                    var html = "<script src='"+ that.src +"'><\/script>";
+                    $('body').append(html);
+                }
+                else if('img' == that.type)
+                {
+                    var html = '<img src="'+ that.src +'" alt="">';
+                    $(that.wrap).append(html);
+                }
+            };
+
+            loadBar.allow_complete = true;
+        }
+        function buildMap () {
+            var map = new BMap.Map("allmap");
+            var point = new BMap.Point(113.279437, 22.312185); //22.312
+            map.centerAndZoom(point, 16);
+            var marker = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker);               // 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        }
     </script>
-    <script type="text/javascript">
-    // 百度地图API功能
-    var map = new BMap.Map("allmap");
-    var point = new BMap.Point(113.279437, 22.327185);
-    map.centerAndZoom(point, 16);
-    var marker = new BMap.Marker(point);  // 创建标注
-    map.addOverlay(marker);               // 将标注添加到地图中
-    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-</script>
 </html>
