@@ -12,46 +12,358 @@
                 background-color: #222;
 
             }
+            .grayscale{
+                /**  格式，filer: grayscale(效果范围)
+                 *  效果范围，取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果
+                 */
+                 -webkit-filter: grayscale(100%);
+                 -o-filter: grayscale(100%);
+                 -moz-filter: grayscale(100%);
+                 -ms-filter: grayscale(100%);
+                 filter: grayscale(100%);  
+            }
+            @-webkit-keyframes top{
+                0%,100%{
+                    top: 20px;
+                }
+                50%{
+                    top: 30px;
+                }
+            }
+            keyframes top{
+                0%,100%{
+                    top: 20px;
+                }
+                50%{
+                    top: 30px;
+                } 
+            }
+            @-webkit-keyframes top_min{
+                0%,100%{
+                    top: 10px;
+                }
+                50%{
+                    top: 20px;
+                }
+            }
+            keyframes top_min{
+                0%,100%{
+                    top: 10px;
+                }
+                50%{
+                    top: 20px;
+                } 
+            }
+            @-webkit-keyframes left{
+                0%,100%{
+                    left: 10px;
+                }
+                50%{
+                    left: 20px;
+                }
+            }
+            keyframes left{
+                0%,100%{
+                    left: 10px;
+                }
+                50%{
+                    left: 20px;
+                } 
+            }
+            @-webkit-keyframes right{
+                0%,100%{
+                    right: 10px;
+                }
+                50%{
+                    right: 20px;
+                }
+            }
+            keyframes right{
+                0%,100%{
+                    right: 10px;
+                }
+                50%{
+                    right: 20px;
+                } 
+            }
+            @-webkit-keyframes down{
+                0%,100%{
+                    bottom: 5px;
+                }
+                50%{
+                    bottom: 0;
+                }
+            }
+            keyframes down{
+                0%,100%{
+                    bottom: 5px;
+                }
+                50%{
+                    bottom: 0;
+                } 
+            }
+            @-webkit-keyframes font{
+                0%{
+                    bottom: 0;
+                    opacity: 0;
+                }
+                100%{
+                    bottom: 1vh;
+                    opacity: 1;
+                }
+            }
+            keyframes font{
+                0%{
+                    bottom: 0;
+                    opacity: 0;
+                }
+                100%{
+                    bottom: 1vh;
+                    opacity: 1;
+                }
+            }
             .hide{
                 display: none;
             }
             #allmap{
                 height: 100%;
             }
+            
+            #part1{
+                background: url(./img/part1.jpg) no-repeat center center;
+                -webkit-background-size: cover;
+                background-size: cover;
+            }
+            .hd{
+                position: absolute;
+                top: 20px;
+                width: 200px;
+                left: 50%;
+                margin-left: -100px;
+                -webkit-animation: top 1.3s linear infinite;
+                animation: top 1.3s linear infinite;
+            }
+            .font{
+                background: url(./img/font.png) no-repeat center center;
+                -webkit-background-size: 290px;
+                background-size: 290px;
+                position: absolute;
+                bottom: 1vh;
+                left: 50%;
+                margin-left: -140px;
+                width: 290px;
+                height: 205px;
+                -webkit-animation: font 1.3s linear ;
+                animation: font 1.3s linear ;
+            }
             #load{
                 position: fixed;
-                left: 50%;
-                top: 50%;
-                width: 300px;
-                height: 300px;
-                margin: -150px 0 0 -150px;
-                
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                background: url(./img/welcome.jpg) no-repeat center center;
+                -webkit-background-size: cover;
+                background-size: cover;
             }
             .bg1, .bg2{ 
                 position: absolute;
-                left: 0;
                 top: 0;
+                bottom: 0;
+                width: 50%;
                 height: 100%;
+                background-color: rgba(0,0,0,.8);
                 overflow: hidden;
+                transition: all .15s ease;
             }
-            .bg2 img{
-                width: 300px;
-                max-width: inherit;
+            .bg1{
+                left:0;
             }
-            .bg1{opacity: .3;}
-            .bg2{width: 0; transition: width .1s ease;}
+            .bg2{
+                right:0;
+            }
+            .fp-controlArrow.fp-prev ,.fp-controlArrow.fp-next {
+                right: 15px;
+                border:0 none;
+                background: url(./img/prev.png) no-repeat center center;
+                width: 40px;
+                height: 50px;
+                background-size: 40px;
+                opacity: .8;
+                -webkit-animation: left 1.3s linear infinite;
+                animation: left 1.3s linear infinite;
+            }
+            .fp-controlArrow.fp-next {
+                background: url(./img/next.png) no-repeat center center;
+                background-size: 40px;
+                -webkit-animation: right 1.3s linear infinite;
+                animation: right 1.3s linear infinite;
+            }
+            .down{
+                position: absolute;
+                bottom: 5px;
+                left: 50%;
+                background: url(./img/down.png) no-repeat center center;
+                background-size: 40px;
+                width: 40px;
+                height: 50px;
+                margin-left: -20px;
+                opacity: .8;
+                -webkit-animation: down 1.3s linear infinite;
+                animation: down 1.3s linear infinite;
+                z-index: 1;
+            }
+            .down a {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            @media only screen and (min-width : 320px) {
+                /* iphone 5 */
+                .hd{
+                    width: 170px;
+                    margin-left: -85px;
+                }
+                .font{
+                    bottom: 1vh;
+                    -webkit-animation: font 1.3s linear ;
+                    animation: font 1.3s linear ;
+                }
+            }
+            @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+                @-webkit-keyframes font{
+                    0%{
+                        bottom: 0;
+                        opacity: 0;
+                    }
+                    100%{
+                        bottom: 20px;
+                        opacity: 1;
+                    }
+                }
+                keyframes font{
+                    0%{
+                        bottom: 0;
+                        opacity: 0;
+                    }
+                    100%{
+                        bottom: 20px;
+                        opacity: 1;
+                    }
+                }
+                /* Styles */
+                .hd{
+                    width: 120px;
+                    margin-left: -60px;
+                    -webkit-animation: top_min 1.3s linear infinite;
+                    animation: top_min 1.3s linear infinite;
+                }
+                .font{
+                    -webkit-background-size: 250px;
+                    background-size: 250px;
+                    bottom: 20px;
+                    width: 250px;
+                    height: 165px;
+                    margin-left: -111px;
+                }
+            }
+            @media only screen and (min-width : 375px) {
+                @-webkit-keyframes font{
+                    0%{
+                        bottom: 0;
+                        opacity: 0;
+                    }
+                    100%{
+                        bottom: 2vh;
+                        opacity: 1;
+                    }
+                }
+                keyframes font{
+                    0%{
+                        bottom: 0;
+                        opacity: 0;
+                    }
+                    100%{
+                        bottom: 2vh;
+                        opacity: 1;
+                    }
+                }
+                /* iphone 6 */
+                .hd{
+                    width: 170px;
+                    margin-left: -85px;
+                    -webkit-animation: top 1.3s linear infinite;
+                    animation: top 1.3s linear infinite;
+                }
+                .font{
+                    -webkit-background-size: 290px;
+                    background-size: 290px;
+                    width: 290px;
+                    height: 205px;
+                    margin-left: -140px;
+                    bottom: 2vh;
+                }
+            }
+            @media only screen and (min-width : 414px) {
+                @-webkit-keyframes font{
+                    0%{
+                        bottom: 0;
+                        opacity: 0;
+                    }
+                    100%{
+                        bottom: 6vh;
+                        opacity: 1;
+                    }
+                }
+                keyframes font{
+                    0%{
+                        bottom: 0;
+                        opacity: 0;
+                    }
+                    100%{
+                        bottom: 6vh;
+                        opacity: 1;
+                    }
+                }
+                .hd{
+                    width: 200px;
+                    margin-left: -100px;
+                    -webkit-animation: top 1.3s linear infinite;
+                    animation: top 1.3s linear infinite;
+                }
+                .font{
+                    bottom: 6vh;
+                }
+            }
         </style>
     </head>
     <body>
         <div id="load">
-            <div class="bg1"><img src="./img/logo.png"></div>
-            <div class="bg2"><img src="./img/logo.png"></div>
+            <div class="bg1"></div>
+            <div class="bg2"></div>
         </div>
         <div id="fullpage" class="hide">
-            <div class="section" id="img1"></div>
-            <div class="section" id="img2"></div>
-            <div class="section" id="img3"></div>
-            <div class="section" id="img4"></div>
+            <div class="section" id="part1">
+                <div class="hd"><img src="./img/fly_heart.png"  alt=""></div>
+                <div class="font"></div>
+                <div class="down"><a href="#secondPage"></a></div>
+            </div>
+            <div  class="section" id="part2">
+                <div class="slide active">
+                    <div class="intro" id="img1"></div>
+                </div>
+                <div class="slide">
+                    <div class="intro" id="img2"></div>
+                </div>
+                <div class="slide">
+                    <div class="intro" id="img3"></div>
+                </div>
+                <div class="slide">
+                    <div class="intro" id="img4"></div>
+                </div>
+                <div class="down"><a href="#lastPage"></a></div>
+            </div>
             <div class="section"><div id="allmap"></div></div>
         </div>
 
@@ -74,38 +386,48 @@
             },
             {
                 type : 'img',
-                src :  './img/1.jpg',
+                src :  './img/part1.jpg'
+            },
+            {
+                type : 'img',
+                src :  './img/5.jpg',
                 wrap : '#img1'
             },
             {
                 type : 'img',
-                src :  './img/2.jpg',
+                src :  './img/6.jpg',
                 wrap : '#img2'
             },
             {
                 type : 'img',
-                src :  './img/3.jpg',
+                src :  './img/7.jpg',
                 wrap : '#img3'
             },
             {
                 type : 'img',
-                src :  './img/4.jpg',
+                src :  './img/8.jpg',
                 wrap : '#img4'
             }
         ]
         var loadBar = {
             allow_complete : false,
-            progress : 0,
-            max : 300,
-            dom : '.bg2',
+            progress : window.innerWidth/2,
+            max : 0,
+            dom1 : '.bg1',
+            dom2 : '.bg2',
             start : function   ( ) {
-                loadBar.progress += !loadBar.allow_complete ? (loadBar.max - loadBar.progress) / 100 : loadBar.max - loadBar.progress;
-                $(loadBar.dom).width(loadBar.progress+'px');
-                if(loadBar.progress >= loadBar.max)
+                loadBar.progress -= !loadBar.allow_complete ? (loadBar.progress ) / 200 : 2;
+                $(loadBar.dom1).width(loadBar.progress+'px');
+                $(loadBar.dom2).width(loadBar.progress+'px');
+                if(loadBar.progress <= 0)
                 {
                     $("#load").fadeOut('300', function ( ) {
-                        $('#fullpage').removeClass('hide').fullpage();
-                        setTimeout(buildMap, 30);
+                        $('#fullpage').removeClass('hide').fullpage({
+                            anchors: ['firstPage', 'secondPage', 'lastPage'],
+                            menu: '#menu',
+                            css3: true
+                        });
+                        setTimeout(buildMap, 120);
                     });
                     
                 }
@@ -119,7 +441,7 @@
         $(document).ready(function() {
             // $('#fullpage').fullpage();
             // setTimeout(buildMap, 30);
-            loadBar.start();
+            setTimeout(loadBar.start, 300)
             load(0);
         });
         function load (index) {
