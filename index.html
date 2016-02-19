@@ -11,8 +11,10 @@
         <style>
             body{
                 background-color: #222;
-
             }
+            img{
+                display: block;
+           }
             .grayscale{
                 /**  格式，filer: grayscale(效果范围)
                  *  效果范围，取值范围为0-1或0-100%；0表示无效果，1或100%表示最大效果
@@ -56,36 +58,28 @@
                 } 
             }
             @-webkit-keyframes left{
-                0%,100%{
-                    left: 10px;
-                }
-                50%{
-                    left: 20px;
-                }
+                0%,100%{ left: 10px; }
+                50%{ left: 20px; } 
             }
             keyframes left{
-                0%,100%{
-                    left: 10px;
-                }
-                50%{
-                    left: 20px;
-                } 
+                0%,100%{ left: 10px; }
+                50%{ left: 20px; } 
             }
             @-webkit-keyframes right{
-                0%,100%{
-                    right: 10px;
-                }
-                50%{
-                    right: 20px;
-                }
+                0%,100%{ right: 10px; }
+                50%{ right: 20px; } 
             }
             keyframes right{
-                0%,100%{
-                    right: 10px;
-                }
-                50%{
-                    right: 20px;
-                } 
+                0%,100%{ right: 10px; }
+                50%{ right: 20px; } 
+            }
+            @-webkit-keyframes rota{
+                0%{ transform:rotate(0deg);}
+                100%{ transform:rotate(360deg);}
+            }
+            keyframes rota{
+                0%{ transform:rotate(0deg);}
+                100%{ transform:rotate(360deg);}
             }
             @-webkit-keyframes down{
                 0%,100%{
@@ -218,6 +212,16 @@
                 display: block;
                 width: 100%;
                 height: 100%;
+            }
+            .music{
+                position: fixed;
+                bottom: 5px;
+                right: 5px;
+                z-index: 1;
+            }
+            .music.play{
+                -webkit-animation: rota 1s linear infinite;
+                animation: rota 1s linear infinite;
             }
 
             @media only screen and (min-width : 320px) {
@@ -367,11 +371,16 @@
             </div>
             <div class="section"><div id="allmap"></div></div>
         </div>
-
+        <div class="music" onclick="toggleAudio()">
+            <img src="./img/music.png" alt="">
+        </div>
+        <audio src="./media/music.mp3" preload controls="controls" loop="loop" id="audio" class="hide"></audio>
     </body>
     <script src="./bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KwPBr3oXBjHG2wmbkOpZbEsZ"></script>
     <script>
+        var isPlay = false;
+        var audio = document.getElementById('audio');
         var load_list = [
             {
                 type : 'js',
@@ -433,6 +442,7 @@
                         });
                         setTimeout(buildMap, 120);
                     });
+                    toggleAudio();
                     
                 }
                 else
@@ -497,6 +507,12 @@
             var marker = new BMap.Marker(point);  // 创建标注
             map.addOverlay(marker);               // 将标注添加到地图中
             marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        }
+        function toggleAudio()
+        {
+            isPlay = !isPlay;
+            !isPlay ? audio.pause(): audio.play();
+            $(".music").toggleClass('play', isPlay);
         }
     </script>
 </html>
