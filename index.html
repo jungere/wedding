@@ -425,7 +425,7 @@
             dom1 : '.bg1',
             dom2 : '.bg2',
             start : function   ( ) {
-                loadBar.progress -= !loadBar.allow_complete ? (loadBar.progress ) / 200 : 2;
+                loadBar.progress -= !loadBar.allow_complete ? (loadBar.progress ) / 100 : 4;
                 $(loadBar.dom1).width(loadBar.progress+'px');
                 $(loadBar.dom2).width(loadBar.progress+'px');
                 if(loadBar.progress <= 0)
